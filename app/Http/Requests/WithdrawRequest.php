@@ -15,7 +15,7 @@ class WithdrawRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -28,7 +28,7 @@ class WithdrawRequest extends FormRequest
         return [
             'amount' => 'required',
             'bankAccountId' => 'required|exists:bank_accounts,id',
-            'typeId' => Rule::in([Transaction::WiTHDRAW_TYPE]),
+            'typeId' => Rule::in([Transaction::WITHDRAW_TYPE]),
         ];
     }
 }

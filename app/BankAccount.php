@@ -9,10 +9,14 @@ class BankAccount extends Model
     /**
      * @var array
      */
-    protected $fillable=[
+    protected $fillable = [
         "agency",
         "number",
     ];
+
+	protected $appends = [
+		"balance"
+	];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -27,7 +31,7 @@ class BankAccount extends Model
      */
     public function deposits()
     {
-        return $this->transactions()->deposits()->get();
+        return $this->transactions()->deposits()->get()->pluck('amount');
     }
 
     /**
@@ -35,13 +39,13 @@ class BankAccount extends Model
      */
     public function withdraws()
     {
-        return $this->transactions()->withdraws()->get();
+        return $this->transactions()->withdraws()->get()->pluck('amount');
     }
 
     /**
      * @return float
      */
-    public function balance(): float
+    public function getBalanceAttribute(): float
     {
         return $this->deposits()->sum() - $this->withdraws()->sum();
     }

@@ -21,7 +21,7 @@ class Withdraw
             throw new DomainException('Conta bancaria inexistente');
         }
 
-        if ($bankAccount->balance() <  $transactionData->amount) {
+        if ($bankAccount->balance <  $transactionData->amount) {
             throw new DomainException('Saldo insuficiente');
         }
 

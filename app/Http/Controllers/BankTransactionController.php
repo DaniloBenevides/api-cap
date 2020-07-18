@@ -16,8 +16,13 @@ class BankTransactionController extends Controller
       */
     public function deposit(DepositRequest $request, Deposit $deposit)
     {
-        $transactionData = TransactionData::fromRequest($request->validated());
-        $transaction = $deposit($transactionData);
+		try {
+			$transactionData = TransactionData::fromRequest($request->validated());
+			$transaction = $deposit($transactionData);
+		}catch(\Exception $e) {
+			abort(422, $e->getMessage());
+		}
+
         return $transaction;
     }
 
@@ -27,9 +32,13 @@ class BankTransactionController extends Controller
       */
     public function withdraw(WithdrawRequest $request, Withdraw $withdraw)
     {
-        $transactionData = TransactionData::fromRequest($request->validated());
-        $transaction = $withdraw($transactionData);
-            
-        return $transaction;
+		try {
+			$transactionData = TransactionData::fromRequest($request->validated());
+			$transaction = $withdraw($transactionData);
+		}catch(\Exception $e){ 
+			abort(422, $e->getMessage());
+		}
+
+		return $transaction;
     }
 }

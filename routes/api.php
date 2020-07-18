@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::post('/bank-accounts/deposit', 'BankTransactionController@deposit')->name('bank-accounts.deposit');
+Route::post('/bank-accounts/withdraw', 'BankTransactionController@withdraw')->name('bank-accounts.withdraw');
+Route::get('/bank-accounts', 'BankAccountController@index')->name('bank-accounts.index');
 
-Route::post('/deposit', 'BankTransactionController@deposit');
-Route::post('/withdraw', 'BankTransactionController@withdraw');
